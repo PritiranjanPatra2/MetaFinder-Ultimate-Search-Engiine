@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Custom Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="../common.css"> -->
+</head>
+<body>
+    <!-- <header class="header">
+        <a href="./index.html" class="logo">TriFusion</a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header> -->
+    <div class="search-container">
+        <div class="search-bar">
+            <a href="../index.html" style="text-decoration: none;border-right:2px solid white; "><span class="google-logo">TriFusion</span></a>
+            <input type="text" class="search-input" id="input" placeholder="What you want to explore..">
+            <div class="search-icons">
+                <!-- <span class="icon lens">🔍</span> -->
+            </div>
+        </div>
+        <div class="right-icons">
+            <!-- <span class="icon">☰</span> -->
+            <img src="./my.jpg" alt="Profile Image" class="profile-image">
+        </div>
+    </div>
+
+    <div id="container">Loading...</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let con = document.getElementById('container');
+            let input = document.getElementById('input');
+            input.value = localStorage.getItem('inputValue');
+            const apiKey = 'AIzaSyBGz8Dh9MfT1UJRrPkpbZJ0gjy-fTf9QK0';
+            const cx = '92fe145be379b4ee8';
+
+            function updateImageFallbacks() {
+                const images = document.querySelectorAll('img');
+                images.forEach(function(img) {
+                    if (img.src.includes('undefined')) {
+                        img.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT3wM8tlWMercQ8_fogKSo5Pl1aVmipnmoFg&s';
+                    }
+                });
+            }
+
+            window.addEventListener('load', function() {
+                let query = input.value;
+                fetchData(query);
+            });
+
+            input.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    let query = input.value;
+                    fetchData(query);
+                }
+            });
+
+            async function fetchData(query) {
+                try {
+                    const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${query}`;
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    const data = await response.json();
+                    showResults(data);
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+
+            function showResults(data) {
+                con.innerHTML = "";
+                let results = data.items;
+                results.forEach(element => {
+                    let div = document.createElement('div');
+                    div.className = "search-result";
+                    div.innerHTML = `
+                        <div class="search-result-header">
+                            <img src="${element.pagemap.metatags?.[0]["og:image"] || 'undefined'}" class="search-result-image" alt="">
+                            <div>
+                                <div class="search-result-title">
+                                    <a href="${element.link}" class="search-result-link">
+                                        ${element.link}
+                                    </a>
+                                </div>
+                                <div class="search-result-url">
+                                    <a href="${element.link}" class="search-result-url-link">
+                                        ${element.displayLink}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-result-body">
+                            <h2>
+                                <a href="${element.link}" class="search-result-title-link">
+                                    ${element.htmlTitle}
+                                </a>
+                            </h2>
+                            <p class="search-result-snippet">
+                                ${element.snippet}
+                            </p>
+                        </div>
+                    `;
+                    con.appendChild(div);
+                });
+                updateImageFallbacks();
+            }
+        });
+    </script>
+</body>
+</html>

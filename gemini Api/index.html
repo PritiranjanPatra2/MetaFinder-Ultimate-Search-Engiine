@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gemini Clone</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="icon" type="image/x-icon" href="geimi-removebg-preview.png" />
+    <link rel="import" href="./index.html">
+    <!-- <link rel="import" href="../gemini Api/index.html"> -->
+    <link rel="import" href="../google search Api/index.html">
+    <link rel="import" href="../WikiPedia Api/index.html">
+    <link rel="stylesheet" href="../common.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <a href="../index.html" class="logo">TriFusion</a>
+      <i class='bx bx-menu' id="menu-icon"></i>
+      <nav class="navbar">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Portfolio</a>
+          <a href="#">Services</a>
+          <a href="#">Contact</a>
+      </nav>
+  </header>
+    <div class="search">
+      <input type="text" id="text" placeholder="Enter a prompt here" />
+      <button id="button">Search</button>
+    </div>
+    <div class="chat-box" id="chat-box"></div>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <script type="module">
+      import { GoogleGenerativeAI } from "@google/generative-ai";
+
+      // Make sure to secure your API key in a real-world application
+      const API_KEY = "AIzaSyBpV5hdEC2-5NovrBXVehKCO1cqHPkSdAc";
+
+      const genAI = new GoogleGenerativeAI(API_KEY);
+      let input=document.getElementById("text");
+      input.value=localStorage.getItem('inputValue');
+
+      async function run() {
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        let value = input.value;
+        const prompt = value;
+
+        // Display the user's input
+        addMessage(prompt, "user-message", "User", "my.jpg");
+
+        try {
+          const result = await model.generateContent(prompt);
+          const response = result.response;
+          let text = await response.text();
+          let x = marked.parse(text);
+          console.log(x);
+
+          addMessage(
+            x,
+            "ai-message",
+            "Gemini",
+            "geimi-removebg-preview.png"
+          );
+          document.getElementById("text").value = "";
+        } catch (error) {
+          console.error("Error generating content:", error);
+          addMessage(
+            "Error generating content. Please try again.",
+            "ai-message",
+            "Gemini",
+            "geimi-removebg-preview.png"
+          );
+        }
+      }
+
+      function addMessage(text, className, sender, imgSrc) {
+        const chatBox = document.getElementById("chat-box");
+        const message = document.createElement("div");
+        message.className = "message " + className;
+
+        const img = document.createElement("img");
+        img.src = imgSrc;
+        img.alt = sender;
+        img.className = "chat-img";
+
+        const textNode = document.createElement("span");
+        textNode.innerHTML = text;
+
+        message.appendChild(img);
+        message.appendChild(textNode);
+        chatBox.appendChild(message);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+     window.addEventListener("load", function (event) {
+         
+            run();
+          
+        });
+
+      document.getElementById("button").addEventListener("click", run);
+      document
+        .getElementById("text")
+        .addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            run();
+          }
+        });
+    </script>
+  </body>
+</html>

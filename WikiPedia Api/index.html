@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Searcher</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="import" href="./index.html">
+    <link rel="import" href="../gemini Api/index.html">
+    <link rel="import" href="../google search Api/index.html">
+    <!-- <link rel="stylesheet" href="../common.css"> -->
+
+
+</head>
+<body>
+
+    <div id="container">
+        <header>
+            <div class="wiki">
+                <img src="wikipedia.png" alt="">
+                <div class="inner-wiki"><img src="wikipedia-wordmark-en.svg" alt="">
+                <img src="wikipedia-tagline-en.svg" alt=""></div>
+            </div>
+            <!-- <h1>Wiki Searcher</h1> -->
+
+            <form class="search-box">
+                <input type="search" placeholder="What do you want to search?" id="search-input">
+            </form>
+            <p>Results Count: <span id="results-count">0</span></p>
+        </header>
+        <div class="results">Loading...</div>
+    </div>
+<script src="index.js"></script>
+</body>
+</html>

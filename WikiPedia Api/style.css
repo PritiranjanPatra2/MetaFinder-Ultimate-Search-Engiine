@@ -1,0 +1,97 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #030303;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+#container {
+    background-color: #030303;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+}
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #0078d7;
+} */
+ .wiki{
+    display: flex;
+    justify-content: center;
+    column-gap: 1rem;
+ }
+ .wiki img{
+    width: 150px;
+ }
+ .inner-wiki{
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1rem;
+ }
+ 
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: #222222;
+    /* border: 1px solid #ccc; */
+}
+.search-box input[type="search"] {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #222222;
+    font-size: 1em;
+    color: white;
+}
+header p {
+    font-size: 1.2em;
+    color: #777;
+}
+.results {
+    margin-top: 20px;
+}
+.results-child {
+    background-color: #222222;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+.results-child h2 {
+    margin: 0 0 10px;
+    color: #ccc0c0;
+    font-size: 1.5em;
+}
+.results-child p {
+    margin: 0 0 10px;
+    color: #555;
+    font-size: 1em;
+}
+.results-child a {
+    text-decoration: none;
+    color: #777777;
+    font-weight: bold;
+    font-size: 1em;
+}
+.results-child a:hover {
+    text-decoration: underline;
+}
+.searchmatch{
+    font-weight: bold;
+}

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="import" href="./gemini Api/index.html">
+    <link rel="import" href="./google search Api/index.html">
+    <link rel="import" href="./WikiPedia Api/index.html">
+    <link rel="stylesheet" href="common.css">
+    <style>
+       /* General styles */
+body {
+margin: 0;
+padding: 0;
+/* min-height: 100vh; */
+width: 100%;
+height: 100vh;
+box-sizing: border-box;
+background-image: url(bg.jpg);
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+
+}
+
+input[type="text"] {
+    padding: 12px;
+    width: 320px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #222222;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #222222;
+    padding: 12px 24px;
+    border-radius: 6px;
+    margin: 8px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #222222;
+}
+
+
+
+/* Main content styles */
+main {
+    margin-top: 80px; 
+    padding: 24px;
+    text-align: center;
+}
+
+#search {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#search a {
+    margin: 0 10px;
+}
+
+/* clock */
+h1 {
+    margin-bottom: 1em;
+    color: rgb(228, 225, 225);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 4rem;
+    /* border: 1px solid white; */
+    padding: 0px 60px;
+    display: flex;
+    justify-content: center;
+}
+
+#time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 1em;
+    border: 2px solid white;
+    /* background-color: rgb(150, 178, 178); */
+    padding: 10px;
+    box-shadow: 1px 2px 40px rgb(198, 178, 178);
+}
+
+#hour, #minute, #seconds, #AmOrPm {
+    font-size: 5em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border: 2px solid white;
+    padding: 10px;
+}
+
+.label {
+    margin-top: 0.5em;
+    font-size: 1.2em;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+    text-shadow: 1px 2px 3px rgb(7, 0, 0);
+}
+/* @media */
+
+@media (max-width: 600px) {
+    input[type="text"] {
+        width: 100%;
+        max-width: 320px;
+    }
+    .navbar{
+        display: none;
+    }
+    h1{
+        font-size: 2em;
+    }
+    .time-section {
+    margin: 0px;
+ 
+}
+#hour, #minute, #seconds, #AmOrPm {
+    font-size: 2rem;
+   
+}
+    
+}
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="./index.html" class="logo">TriFusion</a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+<main>
+    <input type="text" id="text" placeholder="Enter text here...">
+    <div id="search">
+     <a href="./gemini Api/index.html" onclick="transferValue(event)">Gemini</a>
+     <a href="./google search Api/index.html" onclick="transferValue(event)">Google</a>
+     <a href="./WikiPedia Api/index.html" onclick="transferValue(event)">Wikipedia</a>
+    </div>
+</main>
+<h1>DIGITAL CLOCK</h1>
+    
+<div id="time">
+    <div class="time-section">
+        <div id="hour"></div>
+        <div class="label">Hour</div>
+    </div>
+    <div class="time-section">
+        <div id="minute"></div>
+        <div class="label">Minute</div>
+    </div>
+    <div class="time-section">
+        <div id="seconds"></div>
+        <div class="label">Second</div>
+    </div>
+    <div class="time-section">
+        <div id="AmOrPm"></div>
+        <div class="label">AM/PM</div>  
+    </div>
+</div>
+
+   <script>
+      function transferValue(event) {
+            event.preventDefault();
+            const inputValue = document.getElementById('text').value;
+            if(inputValue===""){
+                return;
+            }
+            localStorage.setItem('inputValue', inputValue);
+            window.location.href = event.target.href;
+        }
+        // clock
+        const hour = document.getElementById('hour');
+const minute = document.getElementById('minute');
+const second = document.getElementById('seconds');
+const amOrPm = document.getElementById('AmOrPm');
+
+function getAmPm(hours) {
+    return hours >= 12 ? 'PM' : 'AM';
+}
+
+function formatTimeUnit(unit) {
+    return unit.toString().padStart(2, '0');
+}
+        setInterval(function() {
+    let x = new Date();
+    let hours = x.getHours();
+    let minutes = x.getMinutes();
+    let seconds = x.getSeconds();
+    let ampm = getAmPm(hours);
+    hours = hours % 12 || 12;
+
+    hour.innerText = formatTimeUnit(hours);
+    minute.innerText = formatTimeUnit(minutes);
+    second.innerText = formatTimeUnit(seconds);
+    amOrPm.innerText = ampm;
+}, 1000);
+
+   </script>
+</body>
+</html>
