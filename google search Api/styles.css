@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 body {
     background-color: #030303;;
     color: #e8eaed;
@@ -24,10 +25,18 @@ body {
     flex-grow: 1;
 }
 
-.google-logo {
-    color: #e8eaed;
-    font-size: 24px;
-    margin-right: 15px;
+.google-logo,.logo {
+    font-family: 'Lobster', cursive;
+    /* font-size: 48px; */
+    color: black;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    padding: 10px 20px;
+    /* background: linear-gradient(135deg, #f5f5f5, #ccc); */
+    border: 2px solid #333;
+    border-radius: 10px;
 }
 
 .search-input {
