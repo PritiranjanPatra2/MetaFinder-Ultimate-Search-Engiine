@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+    <header class="header">
+        <a href="../index.html" class="logo">TriFusion</a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Enter search term...">
+        <input type="submit" value="Search" onclick="searchImages()">
+    </div>
+
+    <div id="con"></div>
+
+    <script>
+        let con = document.getElementById("con");
+
+        async function fetchData(query) {
+            const clientId = 'Wt7nId4MXJTdw5Sye8qYzbK2wxVryWqAJKzDxy1Xl1k';
+            let fetched = await fetch(`https://api.unsplash.com/search/photos?query=${query}&client_id=${clientId}&per_page=16`);
+            let data = await fetched.json();
+            return data.results;
+        }
+
+        async function displayImages(query) {
+            con.innerHTML = ''; // Clear previous images
+            const images = await fetchData(query);
+            images.forEach(function (ele) {
+                let a = document.createElement('a');
+                a.href = ele.links.html;
+                a.target = "_blank";
+                let img = document.createElement('img');
+                img.src = ele.urls.regular;
+                img.alt = ele.alt_description || 'Image';
+                a.appendChild(img);
+                con.appendChild(a);
+            });
+        }
+
+        function searchImages() {
+            let inputValue = document.getElementById('searchInput').value.trim();
+            if (inputValue !== '') {
+                localStorage.setItem("inputValue", inputValue);
+                displayImages(inputValue);
+            } else {
+                alert('Please enter a search term.');
+            }
+        }
+
+        let initialValue = localStorage.getItem("inputValue");
+        document.getElementById('searchInput').value = initialValue;
+        displayImages(initialValue);
+    </script>
+</body>
+</html>
