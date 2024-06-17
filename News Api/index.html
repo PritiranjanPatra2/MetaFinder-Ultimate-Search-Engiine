@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../common.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #050505;
+            margin: 0;
+            padding: 0;
+        }
+
+        #search-container {
+            padding: 20px;
+            text-align: center;
+        }
+        #text {
+            width: 300px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        #searchBtn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #searchBtn:hover {
+            background-color: #555;
+        }
+        #con {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card-title {
+            font-size: 1.2em;
+            margin: 0;
+        }
+        .card-description {
+            font-size: 1em;
+            color: #555;
+            margin: 10px 0;
+        }
+        .card-source {
+            font-size: 0.9em;
+            color: #888;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        #no-results {
+            text-align: center;
+            font-size: 1.5em;
+            color: #888;
+            margin-top: 50px;
+            grid-column: 1 / -1; /* Make the no-results message span all columns */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="../index.html" class="logo">MetaFinder</a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <div id="search-container">
+        <input type="text" id="text" placeholder="Enter search term">
+        <button id="searchBtn">Search</button>
+    </div>
+    <div id="con"></div>
+    <script>
+        let textInput = document.getElementById("text");
+        let searchBtn = document.getElementById("searchBtn");
+        let con = document.getElementById("con");
+
+        let defaultSearchTerm = localStorage.getItem('inputValue') || 'example';
+        textInput.value = defaultSearchTerm;
+
+        async function fetchNews(query) {
+            let apikey = '509cae5b3bd30169768c2ce5342b3df2';
+            let url = `https://gnews.io/api/v4/search?q=${query}&lang=en&country=us&max=10&apikey=${apikey}`;
+
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+                console.log(data);
+
+                let articles = data.articles;
+                con.innerHTML = '';
+
+                if (articles && articles.length === 0) {
+                    let noResults = document.createElement('div');
+                    noResults.id = 'no-results';
+                    noResults.textContent = 'No Search Results';
+                    con.appendChild(noResults);
+                } else {
+                    articles.forEach(article => {
+                        let card = document.createElement('div');
+                        card.className = 'card';
+
+                        let img = document.createElement('img');
+                        img.src = article.image;
+                        card.appendChild(img);
+
+                        let cardContent = document.createElement('div');
+                        cardContent.className = 'card-content';
+
+                        let title = document.createElement('h2');
+                        title.className = 'card-title';
+                        title.textContent = article.title;
+                        cardContent.appendChild(title);
+
+                        let description = document.createElement('p');
+                        description.className = 'card-description';
+                        description.textContent = article.description;
+                        cardContent.appendChild(description);
+
+                        let source = document.createElement('p');
+                        source.className = 'card-source';
+                        source.textContent = `Source: ${article.source.name} | Published at: ${new Date(article.publishedAt).toLocaleString()}`;
+                        cardContent.appendChild(source);
+
+                        card.appendChild(cardContent);
+                        con.appendChild(card);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                let noResults = document.createElement('div');
+                noResults.id = 'no-results';
+                noResults.textContent = 'No Search Results';
+                con.appendChild(noResults);
+            }
+        }
+
+        fetchNews(defaultSearchTerm);
+
+        function performSearch() {
+            let query = textInput.value.trim();
+            if (query) {
+                fetchNews(query);
+            } else {
+                alert('Please enter a search term');
+            }
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+
+        textInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>
