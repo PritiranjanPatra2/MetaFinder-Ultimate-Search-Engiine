@@ -65,7 +65,7 @@
         addMessage(prompt, "user-message", "User", "my.jpg");
 
         try {
-          const result = await model.generateContent(promt);//prompt
+          const result = await model.generateContent(prompt);
           const response = result.response;
           let text = await response.text();
           let x = marked.parse(text);
