@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
     />
+
     <link rel="stylesheet" href="index.css" />
     <link rel="icon" type="image/x-icon" href="geimi-removebg-preview.png" />
     <link rel="import" href="./index.html">
@@ -16,18 +17,21 @@
     <link rel="import" href="../google search Api/index.html">
     <link rel="import" href="../WikiPedia Api/index.html">
     <link rel="stylesheet" href="../common.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../common.js">
   </head>
   <body>
     <header class="header">
       <a href="../index.html" class="logo"><img src="../logo.png" style="height: 40px;">MetaFinder</a>
-      <i class='bx bx-menu' id="menu-icon"></i>
+      <i class="fa fa-bars" id="menu-icon"></i>
       <nav class="navbar">
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Portfolio</a>
-          <a href="#">Services</a>
-          <a href="#">Contact</a>
+          <a href="../index.html">Home</a>
+          <a href="../about.html">About</a>
+          <a href="../portfolio.html">Portfolio</a>
+          <a href="../services.html">Services</a>
+          <a href="../contact.html">Contact</a>
       </nav>
   </header>
     <div class="search">
@@ -61,7 +65,7 @@
         addMessage(prompt, "user-message", "User", "my.jpg");
 
         try {
-          const result = await model.generateContent(prompt);
+          const result = await model.generateContent(promt);//prompt
           const response = result.response;
           let text = await response.text();
           let x = marked.parse(text);
@@ -117,6 +121,23 @@
             run();
           }
         });
+        
     </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const menuIcon = document.getElementById('menu-icon');
+          const navbar = document.querySelector('.navbar');
+      
+          menuIcon.addEventListener('click', () => {
+              navbar.classList.toggle('active');
+              if (navbar.classList.contains('active')) {
+                  menuIcon.classList.replace('fa-bars', 'fa-times');
+              } else {
+                  menuIcon.classList.replace('fa-times', 'fa-bars');
+              }
+          });
+      });
+      </script>
+      
   </body>
 </html>

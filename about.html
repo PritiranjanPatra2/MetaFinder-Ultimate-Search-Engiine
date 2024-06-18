@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About MetaFinder</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
+    <script src="common.js"></script>
+    <style>
+        /* General styles */
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background-image: url(bg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        .header .logo img {
+            margin-right: 10px;
+        }
+
+        .header .navbar a {
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .header .navbar a:hover {
+            background-color: #222222;
+        }
+
+        .main {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            margin: 80px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .main h1 {
+            margin-bottom: 20px;
+            font-size: 3rem;
+        }
+
+        .main p {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .main .team {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .main .team .member {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .main .team .member img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .main .team .member h3 {
+            margin-top: 10px;
+            font-size: 1.5rem;
+        }
+
+        .main .team .member p {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .main {
+                margin: 20px;
+                padding: 10px;
+            }
+
+            .main h1 {
+                font-size: 2rem;
+            }
+
+            .main .team .member {
+                margin: 10px;
+            }
+
+            .main .team .member img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .main .team .member h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="./index.html" class="logo"><img src="logo.png" alt="MetaFinder Logo" style="height: 40px;">MetaFinder</a>
+        <i class="fa fa-bars" id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+    <main class="main">
+        <h1>About MetaFinder</h1>
+        <p>MetaFinder is your ultimate information gateway, offering seamless access to a variety of APIs including Gemini, Google Search, Wikipedia, Unsplash, and News. Our mission is to provide a comprehensive platform where users can find all the information they need in one place.</p>
+        <p>Founded by a group of tech enthusiasts, MetaFinder aims to simplify the process of gathering information, making it more efficient and user-friendly. Whether you're looking for the latest news, images, or detailed articles, MetaFinder has got you covered.</p>
+        <h2>Our Team</h2>
+        <div class="team">
+            <div class="member">
+                <img src="my.jpg" alt="Team Member 1">
+                <h3>Pritiranjan Patra</h3>
+                <p>Founder & CEO</p>
+            </div>
+            
+        </div>
+    </main>
+</body>
+</html>
