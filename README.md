@@ -1,6 +1,3 @@
-Sure, here’s the README file formatted in Markdown:
-
-```markdown
 # MetaFinder - Your Ultimate Information Gateway
 
 MetaFinder is a comprehensive tool designed to enhance your information search experience by seamlessly integrating multiple APIs and providing an intuitive user interface. Whether you're a researcher, student, or just curious, MetaFinder aims to simplify and enrich your search process.
@@ -87,4 +84,4 @@ We welcome contributions to enhance MetaFinder. To contribute:
 
 - Thanks to all API providers: Gemini, Google, Wikipedia, Unsplash, and News.
 - Special thanks to the open-source community for their invaluable resources and support.
-```
+
